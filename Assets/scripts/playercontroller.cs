@@ -5,47 +5,50 @@ using UnityEngine;
 public class playercontroller : MonoBehaviour
 {
 
-
-    public int numBalls; 
-    public float speed; 
-    private Rigidbody rb;
+    public static int numBalls = 50;
+    public bool isClone = false;
+    public float speed = 5; 
+    public Rigidbody rb;
+    public SphereCollider collider;
+    public MeshRenderer renderer;
 
     void Start()
     {
-        numBalls = 5;
         rb = GetComponent<Rigidbody>();
-        if (gameObject.name.Contains("Clone"))
-        {
-            rb.constraints = RigidbodyConstraints.FreezePosition;
+        collider = GetComponent<SphereCollider>();
+        renderer = GetComponent<MeshRenderer>();
+        if (gameObject.name.Contains("Clone")) isClone = true;
+        if (isClone) {
+            Vector3 movement = new Vector3(-1500f, 0f, Random.Range(-500f, 500f));
+            // rb.velocity = movement;
+            rb.AddForce(movement);
         }
-        rb.constraints = RigidbodyConstraints.FreezePositionY;
     }
 
+    void Update() {
+        if (Input.GetKeyUp(KeyCode.Space) && numBalls > 0 && !isClone) 
+        {
+            GameObject clone;
+            clone = Instantiate(gameObject, transform.position, transform.rotation);
+            playercontroller cloneController = clone.GetComponent<playercontroller>();
+
+            // clone.velocity = transform.TransformDirection(Vector3.forward);
+            numBalls--;
+        }
+    }
 
     void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && numBalls > 0 && !gameObject.name.Contains("Clone")) 
-        {
-            Rigidbody clone;
-            clone = Instantiate(rb, transform.position, transform.rotation);
-            Vector3 movement = new Vector3(0, 0.0f, 0);
+        if (isClone) {
+            rb.constraints = RigidbodyConstraints.FreezePositionY;
+            collider.enabled = true;
+            renderer.enabled = true;
 
-            rb.AddForce(movement * speed);
-
-            clone.velocity = transform.TransformDirection(Vector3.forward);
-            numBalls--;
+            
+        } else {
+            rb.constraints = RigidbodyConstraints.FreezePosition;
+            collider.enabled = false;
+            renderer.enabled = false;
         }
-       
     }
-
-    //public class clone
-    //{
-    //    private Rigidbody rb;
-    //    void Start()
-    //    {
-
-    //        rb = GetComponent<Rigidbody>();
-    //        rb.constraints = RigidbodyConstraints.FreezePositionY;
-    //    }
-    //}
 }
