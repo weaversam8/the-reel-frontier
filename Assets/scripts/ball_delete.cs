@@ -24,6 +24,7 @@ public class ball_delete : MonoBehaviour
     void OnTriggerEnter(Collider other) {
         if (other.name.Contains("playercontroller")) {
             Destroy(other.gameObject);
+            playercontroller.numBalls++;
         }
     }
 }
