@@ -19,7 +19,7 @@ public class playercontroller : MonoBehaviour
         renderer = GetComponent<MeshRenderer>();
         if (gameObject.name.Contains("Clone")) isClone = true;
         if (isClone) {
-            Vector3 movement = new Vector3(-1500f, 0f, Random.Range(-500f, 500f));
+            Vector3 movement = new Vector3(Random.Range(-250f, 250f), -500f, 0);
             // rb.velocity = movement;
             rb.AddForce(movement);
         }
@@ -40,7 +40,7 @@ public class playercontroller : MonoBehaviour
     void FixedUpdate()
     {
         if (isClone) {
-            rb.constraints = RigidbodyConstraints.FreezePositionY;
+            rb.constraints = RigidbodyConstraints.FreezePositionZ;
             collider.enabled = true;
             renderer.enabled = true;
 
