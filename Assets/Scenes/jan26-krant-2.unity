@@ -4316,7 +4316,7 @@ GameObject:
   - component: {fileID: 1645258330}
   - component: {fileID: 1645258329}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Central video screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
