@@ -6,6 +6,7 @@ public class AddBalls : MonoBehaviour
 {
     // set a value to this in the UI
     public playercontroller playerController;
+    public bool deleteOnScore = true;
 
     // number of balls awarded (set in UI)
     public int numBalls = 0;
@@ -25,7 +26,7 @@ public class AddBalls : MonoBehaviour
     // When a ball enters
     void OnTriggerEnter(Collider other) {
         if (other.name.Contains("playercontroller")) {
-            Destroy(other.gameObject);
+            if (deleteOnScore) Destroy(other.gameObject);
             playercontroller.numBalls += numBalls;
         }
     }
