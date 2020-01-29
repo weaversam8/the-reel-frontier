@@ -20,7 +20,6 @@ public class Rotate : MonoBehaviour
     void Update()
     {
         gameObject.transform.Rotate(0f, 0f, delta * rotateDirection, Space.Self);
-        Debug.Log(gameObject.transform.rotation.z);
         if (gameObject.transform.rotation.z > rightBound) rotateDirection = 1;
         if (gameObject.transform.rotation.z < leftBound) rotateDirection = -1;
     }
