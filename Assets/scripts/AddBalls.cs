@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ball_delete : MonoBehaviour
+public class AddBalls : MonoBehaviour
 {
-
     // set a value to this in the UI
     public playercontroller playerController;
-    public AudioSource audioSource; 
+    public bool deleteOnScore = true;
+
+    // number of balls awarded (set in UI)
+    public int numBalls = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        
     }
 
     // Update is called once per frame
@@ -24,9 +26,8 @@ public class ball_delete : MonoBehaviour
     // When a ball enters
     void OnTriggerEnter(Collider other) {
         if (other.name.Contains("playercontroller")) {
-            Destroy(other.gameObject);
-            audioSource.PlayOneShot(audioSource.clip);
-            if (playercontroller.numBalls <= 0) playercontroller.numBalls = 1;
+            if (deleteOnScore) Destroy(other.gameObject);
+            playercontroller.numBalls += numBalls;
         }
     }
 }
